@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+interface FlexPros {
+  flex: number
+}
+
 export const Container = styled.main`
   width: 100%;
   max-width: 80%;
@@ -32,5 +36,6 @@ export const TitleHighlight = styled.h3`
 `
 
 export const Column = styled.div`
+  flex: ${({ flex }: FlexPros) => flex};
   padding-right: 24px;
 `
