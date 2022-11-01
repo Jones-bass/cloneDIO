@@ -6,7 +6,7 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-const Button = ({ title, variant = 'primary', onClick }: ButtonProps) => {
+export function Button({ title, variant = 'primary', onClick }: ButtonProps) {
   return (
     <ButtonContainer variant={variant} onClick={onClick}>
       {title}
@@ -14,4 +14,4 @@ const Button = ({ title, variant = 'primary', onClick }: ButtonProps) => {
   )
 }
 
-export { Button }
+

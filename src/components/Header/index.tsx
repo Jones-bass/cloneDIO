@@ -8,32 +8,46 @@ import {
   Input,
   Row,
   Menu,
+  UserPicture,
 } from './styles'
 
-const Header = () => {
+interface AuthenticatedProps {
+  authenticated: boolean
+}
+
+export default function Header({authenticated}: AuthenticatedProps) {
   const navigate = useNavigate()
 
   const handleClickSignIn = () => {
-    navigate('/')
+    navigate('/login')
   }
   return (
     <Wrapper>
       <Container>
         <Row>
           <img src={logo} alt="Logo da dio" onClick={handleClickSignIn} />
-          <BuscarInputContainer>
-            <Input placeholder="Buscar..." />
-          </BuscarInputContainer>
-          <Menu>Live Code</Menu>
-          <Menu>Global</Menu>
+          {authenticated ? (
+            <>
+              <BuscarInputContainer>
+                <Input placeholder="Buscar..." />
+              </BuscarInputContainer>
+              <Menu>Live Code</Menu>
+              <Menu>Global</Menu>
+            </>
+          ) : null}
         </Row>
         <Row>
-          <Button title="Entrar" />
-          <Button title="Cadastrar" />
+          {authenticated ? (
+            <UserPicture src="https://avatars.githubusercontent.com/u/85463497?v=4" />
+          ) : (
+            <>
+              <Button title="Entrar" />
+              <Button title="Cadastrar" />
+            </>
+          )}
         </Row>
       </Container>
     </Wrapper>
   )
 }
 
-export { Header }
