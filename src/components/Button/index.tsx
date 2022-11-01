@@ -3,8 +3,8 @@ import { ButtonContainer } from './styles';
 
 interface ButtonProps {
   title: string
-  variant: string
-  onClick: () => void
+  variant?: string
+  onClick?: () => void
 }
 
 const Button = ({ title, variant = "primary", onClick }: ButtonProps) => {
