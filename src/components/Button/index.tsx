@@ -1,5 +1,4 @@
-
-import { ButtonContainer } from './styles';
+import { ButtonContainer } from './styles'
 
 interface ButtonProps {
   title: string
@@ -7,12 +6,10 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-const Button = ({ title, variant = "primary", onClick }: ButtonProps) => {
+const Button = ({ title, variant = 'primary', onClick }: ButtonProps) => {
   return (
-    <ButtonContainer
-      variant={variant}
-      onClick={onClick}
-        >{title} 
+    <ButtonContainer variant={variant} onClick={onClick}>
+      {title}
     </ButtonContainer>
   )
 }

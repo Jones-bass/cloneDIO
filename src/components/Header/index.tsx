@@ -1,7 +1,13 @@
-
-import logo from '../../assets/logo-dio.png';
-import { Button } from '../Button';
-import { Container, Wrapper, BuscarInputContainer, Input, Row, Menu} from './styles';
+import logo from '../../assets/logo-dio.png'
+import { Button } from '../Button'
+import {
+  Container,
+  Wrapper,
+  BuscarInputContainer,
+  Input,
+  Row,
+  Menu,
+} from './styles'
 
 const Header = () => {
   return (
@@ -10,7 +16,7 @@ const Header = () => {
         <Row>
           <img src={logo} alt="Logo da dio" />
           <BuscarInputContainer>
-            <Input placeholder='Buscar...' />
+            <Input placeholder="Buscar..." />
           </BuscarInputContainer>
           <Menu>Live Code</Menu>
           <Menu>Global</Menu>

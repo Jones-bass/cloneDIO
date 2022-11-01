@@ -1,19 +1,15 @@
-
-
-import {InputContainer, InputText, IconContainer } from './styles';
+import { InputContainer, InputText, IconContainer } from './styles'
 
 interface InputProps {
   name: string
-  leftIcon?: any;
+  leftIcon?: any
 }
 
-export default function Input ({leftIcon, name, ...rest}: InputProps) {
+export default function Input({ leftIcon, name, ...rest }: InputProps) {
   return (
     <InputContainer>
-        {leftIcon ? (<IconContainer>{leftIcon}</IconContainer>) : null}
-        <InputText {...rest} />       
+      {leftIcon ? <IconContainer>{leftIcon}</IconContainer> : null}
+      <InputText {...rest} />
     </InputContainer>
   )
 }
-
-
