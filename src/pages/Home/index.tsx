@@ -6,8 +6,15 @@ import {
   TextContent,
 } from '../../styles/home'
 import bannerImage from '../../assets/banner.png'
+import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
+  const navigate = useNavigate()
+
+  const handleClickSignIn = () => {
+    navigate('/login')
+  }
+
   return (
     <Container>
       <div>
@@ -25,7 +32,7 @@ export default function Home() {
         <Button
           title="Começar agora"
           variant="secondary"
-          onClick={() => console.log('Teste')}
+          onClick={handleClickSignIn}
         />
       </div>
       <div>
