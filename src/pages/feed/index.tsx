@@ -1,9 +1,9 @@
-import Card from '../../components/Card'
-import Header from '../../components/Header'
+import { Card } from '../../components/Card'
+import { Header } from '../../components/Header'
 import { UserInfo } from '../../components/UserInfo'
 import { Container, Column, Title, TitleHighlight } from '../../styles/feed'
 
-export default function Feed() {
+export function Feed() {
   return (
     <>
       <Header authenticated={true}/>

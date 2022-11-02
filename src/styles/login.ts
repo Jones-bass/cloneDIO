@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+interface FlexPros {
+  flex: number
+}
+
 export const Container = styled.main`
   width: 100%;
   max-width: 80%;
@@ -17,7 +21,8 @@ export const Wrapper = styled.div`
 `
 
 export const Column = styled.div`
-  flex: 1;
+  flex: ${({ flex }: FlexPros) => flex};
+  padding-right: 24px;
 `
 
 export const Row = styled.div`

@@ -6,6 +6,14 @@ Projeto baseando um Clone da Plataforma da DIO, com Styled-Components, Rotas, Bu
 
 
 ---
+## Neste projeto usamos o React Hook Forms 
+que é uma biblioteca que auxiliará a organizar e padronizar as validações dos formulários por toda a aplicação.
+
+React Hook Form cria validação de formulário simples, alinhado com os existentes dentro do próprio HTML.
+
+O React Hook Form adota o uso de entradas não controladas em vez de depender do estado. Essa abordagem torna os formulários mais eficientes e reduz o número de novas renderizações.
+
+---
 
 ##  *VITE*
 

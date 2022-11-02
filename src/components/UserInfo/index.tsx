@@ -6,7 +6,7 @@ interface UserProps {
   percentual: number
 }
 
-const UserInfo = ({ nome, image, percentual }: UserProps) => {
+export function UserInfo({ nome, image, percentual }: UserProps) {
   return (
     <Container>
       <UserPicture src={image} />
@@ -18,4 +18,3 @@ const UserInfo = ({ nome, image, percentual }: UserProps) => {
   )
 }
 
-export { UserInfo }

@@ -15,7 +15,7 @@ interface AuthenticatedProps {
   authenticated: boolean
 }
 
-export default function Header({authenticated}: AuthenticatedProps) {
+export function Header({authenticated}: AuthenticatedProps) {
   const navigate = useNavigate()
 
   const handleClickSignIn = () => {
