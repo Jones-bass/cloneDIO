@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 import { MdEmail, MdLock } from 'react-icons/md'
+import { FaUser } from 'react-icons/fa'
 
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
@@ -14,22 +15,27 @@ import {
   Container,
   Title,
   Column,
-  TitleLogin,
-  SubtitleLogin,
-  EsqueciText,
-  CriarText,
+  TitleRegistration,
+  SubtitleRegistration,
+  ContaText,
+  TitleConta,
   Row,
   Wrapper,
-} from '../../styles/login'
+} from '../../styles/registration'
 import { api } from '../../services/api'
 
 interface IFormInputs {
+  name: string
   email: string
   password: string
 }
 
 const schema = yup
   .object({
+    name: yup
+      .string()
+      .max(40, 'nome não invalido')
+      .required('Campo Obrigatório'),
     email: yup
       .string()
       .email('email não é valido')
@@ -41,7 +47,7 @@ const schema = yup
   })
   .required()
 
-export function Login() {
+export function Registration() {
   const navigate = useNavigate()
 
   const {
@@ -80,10 +86,19 @@ export function Login() {
         </Column>
         <Column flex={1}>
           <Wrapper>
-            <TitleLogin>Faça seu cadastro</TitleLogin>
-            <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
+            <TitleRegistration>Comece agora grátis</TitleRegistration>
+            <SubtitleRegistration>
+              Crie sua conta e make the change._
+            </SubtitleRegistration>
 
             <form onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                name="name"
+                placeholder="Nome completo"
+                errorMessage={errors?.name?.message}
+                control={control}
+                leftIcon={<FaUser color="#8647AD" />}
+              />
               <Input
                 name="email"
                 placeholder="E-mail"
@@ -98,12 +113,21 @@ export function Login() {
                 control={control}
                 leftIcon={<MdLock color="#8647AD" />}
               />
-              <Button title="Entrar" variant="secondary" type="submit" />
+              <Button
+                title="Criar minha conta"
+                variant="secondary"
+                type="submit"
+              />
             </form>
 
+            <TitleConta>
+              Ao clicar em <strong>criar minha conta grátis</strong>, declaro
+              que aceito as Políticas de Privacidade e os Termos de Uso da DIO.
+            </TitleConta>
             <Row>
-              <EsqueciText>Esqueci minha senha</EsqueciText>
-              <CriarText>Criar Conta</CriarText>
+              <ContaText>
+                Já tenho conta. <strong>Fazer login</strong>
+              </ContaText>
             </Row>
           </Wrapper>
         </Column>

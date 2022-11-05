@@ -24,6 +24,7 @@ export const InputText = styled.input`
 `
 
 export const ErrosText = styled.p`
-  color: #FF0000;
+  color: #ff0000;
   font-size: 12px;
+  padding-bottom: 5px;
 `

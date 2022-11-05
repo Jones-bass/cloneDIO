@@ -2,7 +2,7 @@ import { Container, NameText, Progress, UserPicture } from './styles'
 
 interface UserProps {
   nome: string
-  image: string
+  image?: string
   percentual: number
 }
 
@@ -17,4 +17,3 @@ export function UserInfo({ nome, image, percentual }: UserProps) {
     </Container>
   )
 }
-

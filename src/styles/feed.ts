@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-interface FlexPros {
+interface FlexProps {
   flex: number
 }
 
@@ -35,7 +35,7 @@ export const TitleHighlight = styled.h3`
   margin-bottom: 24px;
 `
 
-export const Column = styled.div`
-  flex: ${({ flex }: FlexPros) => flex};
+export const Column = styled.div<FlexProps>`
+  flex: ${({ flex }) => flex};
   padding-right: 24px;
 `

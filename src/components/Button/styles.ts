@@ -4,7 +4,7 @@ interface ButtonProps {
   variant: string
 }
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled.button<ButtonProps>`
   background: #565656;
   border-radius: 22px;
   position: relative;
@@ -14,7 +14,7 @@ export const ButtonContainer = styled.button`
   min-width: 120px;
   width: 100%;
 
-  ${({ variant }: ButtonProps) =>
+  ${({ variant }) =>
     variant !== 'primary' &&
     css`
       min-width: 167px;

@@ -8,7 +8,7 @@ export const Container = styled.main`
   width: 100%;
   max-width: 80%;
   margin: 0 auto;
-  margin-top: 120px;
+  margin-top: 100px;
 
   display: flex;
   flex-direction: row;
@@ -17,7 +17,7 @@ export const Container = styled.main`
 `
 
 export const Wrapper = styled.div`
-  max-width: 300px;
+  max-width: 330px;
 `
 
 export const Column = styled.div<FlexProps>`
@@ -45,7 +45,7 @@ export const Title = styled.h2`
   color: #ffffff;
 `
 
-export const TitleLogin = styled.p`
+export const TitleRegistration = styled.p`
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
@@ -54,7 +54,7 @@ export const TitleLogin = styled.p`
   margin-bottom: 8px;
 `
 
-export const SubtitleLogin = styled.p`
+export const SubtitleRegistration = styled.p`
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
@@ -63,22 +63,22 @@ export const SubtitleLogin = styled.p`
   margin-bottom: 35px;
 `
 
-export const EsqueciText = styled.p`
+export const ContaText = styled.p`
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 19px;
 
-  color: #e5e044;
+  strong {
+    color: #23dd7a;
+  }
 `
 
-export const CriarText = styled.p`
+export const TitleConta = styled.p`
   font-family: 'Open Sans';
   font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 19px;
-
-  color: #23dd7a;
+  font-weight: 400;
+  font-size: 18px;
+  margin-top: 35px;
 `

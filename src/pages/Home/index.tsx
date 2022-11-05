@@ -31,8 +31,8 @@ export function Home() {
           </Title>
           <TextContent>
             Domine as tecnologias utilizadas pelas empresas mais inovadoras do
-            mundo e encare seu novo desafio profissional, evoluindo em comunidade
-            com os melhores experts.
+            mundo e encare seu novo desafio profissional, evoluindo em
+            comunidade com os melhores experts.
           </TextContent>
           <Button
             title="Começar agora"
