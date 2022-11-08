@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-
 import { MdEmail, MdLock } from 'react-icons/md'
 
 import { Input } from '../../components/Input'
@@ -22,11 +21,7 @@ import {
   Wrapper,
 } from '../../styles/login'
 import { api } from '../../services/api'
-
-interface IFormInputs {
-  email: string
-  password: string
-}
+import { defaultValues, IFormLogin } from '../../components/Input/types'
 
 const schema = yup
   .object({
@@ -48,12 +43,13 @@ export function Login() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({
+  } = useForm<IFormLogin>({
     resolver: yupResolver(schema),
     mode: 'onChange',
+    defaultValues,
   })
 
-  const onSubmit = async (formData: IFormInputs) => {
+  const onSubmit = async (formData: IFormLogin) => {
     try {
       const { data } = await api.get(
         `users?email=${formData.email}&senha=${formData.password}`,
@@ -86,14 +82,12 @@ export function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
                 name="email"
-                placeholder="E-mail"
                 errorMessage={errors?.email?.message}
                 control={control}
                 leftIcon={<MdEmail color="#8647AD" />}
               />
               <Input
                 name="password"
-                placeholder="Password"
                 errorMessage={errors?.password?.message}
                 control={control}
                 leftIcon={<MdLock color="#8647AD" />}

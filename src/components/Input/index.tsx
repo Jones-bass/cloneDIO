@@ -1,19 +1,19 @@
-import { Controller } from 'react-hook-form'
+/* eslint-disable no-undef */
+import { Controller, Control } from 'react-hook-form'
 import { InputContainer, InputText, IconContainer, ErrosText } from './styles'
+import { IFormLogin } from './types'
 
 interface InputProps {
-  name: string
+  name: 'email' | 'password'
   leftIcon?: React.ReactNode
-  control: any
+  control: Control<IFormLogin, any>
   errorMessage?: string
-  placeholder?: string
 }
 
 export function Input({
   leftIcon,
   name,
   errorMessage,
-  placeholder,
   control,
   ...rest
 }: InputProps) {
@@ -22,20 +22,19 @@ export function Input({
       <InputContainer>
         {leftIcon ? <IconContainer>{leftIcon}</IconContainer> : null}
         <Controller
-          name={name}
           control={control}
-          rules={{ required: true }}
-          render={({ field: { value, onChange } }) => (
+          name={name}
+          render={({ field: { onChange, onBlur, value, ref } }) => (
             <InputText
-              placeholder={placeholder}
-              value={value}
-              onChange={onChange}
               {...rest}
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              ref={ref}
             />
           )}
         />
       </InputContainer>
-
       {errorMessage ? <ErrosText>{errorMessage}</ErrosText> : null}
     </>
   )
