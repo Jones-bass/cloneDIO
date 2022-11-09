@@ -71,6 +71,7 @@ export const ContaText = styled.p`
   line-height: 19px;
 
   strong {
+    cursor: pointer;
     color: #23dd7a;
   }
 `

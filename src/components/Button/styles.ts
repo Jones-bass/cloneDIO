@@ -10,9 +10,14 @@ export const ButtonContainer = styled.button<ButtonProps>`
   position: relative;
 
   color: #ffffff;
-  padding: 2px 12px;
+  padding: 6px 12px;
   min-width: 120px;
   width: 100%;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
 
   ${({ variant }) =>
     variant !== 'primary' &&
@@ -31,6 +36,16 @@ export const ButtonContainer = styled.button<ButtonProps>`
         width: calc(100% + 10px);
         height: calc(100% + 10px);
         border-radius: 22px;
+      }
+
+      &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: no-drop;
       }
     `}
 `

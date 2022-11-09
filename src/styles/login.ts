@@ -69,6 +69,7 @@ export const EsqueciText = styled.p`
   font-weight: 700;
   font-size: 14px;
   line-height: 19px;
+  cursor: pointer;
 
   color: #e5e044;
 `
@@ -79,6 +80,7 @@ export const CriarText = styled.p`
   font-weight: 700;
   font-size: 14px;
   line-height: 19px;
+  cursor: pointer;
 
   color: #23dd7a;
 `

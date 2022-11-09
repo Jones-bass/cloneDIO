@@ -12,20 +12,29 @@ import {
 } from './styles'
 
 interface AuthenticatedProps {
-  authenticated: boolean
+  authenticated?: boolean
 }
 
 export function Header({ authenticated }: AuthenticatedProps) {
   const navigate = useNavigate()
 
-  const handleClickSignIn = () => {
+  const handleSignIn = () => {
     navigate('/login')
   }
+
+  const handleRegistration = () => {
+    navigate('/registration')
+  }
+
+  const handleHome = () => {
+    navigate('/')
+  }
+
   return (
     <Wrapper>
       <Container>
         <Row>
-          <img src={logo} alt="Logo da dio" onClick={handleClickSignIn} />
+          <img src={logo} alt="Logo da dio" onClick={handleHome} />
           {authenticated ? (
             <>
               <BuscarInputContainer>
@@ -41,8 +50,8 @@ export function Header({ authenticated }: AuthenticatedProps) {
             <UserPicture src="https://avatars.githubusercontent.com/u/85463497?v=4" />
           ) : (
             <>
-              <Button title="Entrar" />
-              <Button title="Cadastrar" />
+              <Button onClick={handleSignIn} title="Entrar" />
+              <Button onClick={handleRegistration} title="Cadastrar" />
             </>
           )}
         </Row>

@@ -4,9 +4,11 @@ import { InputContainer, InputText, IconContainer, ErrosText } from './styles'
 import { IFormLogin } from './types'
 
 interface InputProps {
-  name: 'email' | 'password'
+  name: 'nome' | 'email' | 'password'
   leftIcon?: React.ReactNode
   control: Control<IFormLogin, any>
+  placeholder: string
+  type?: string
   errorMessage?: string
 }
 

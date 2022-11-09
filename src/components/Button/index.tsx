@@ -4,12 +4,18 @@ interface ButtonProps {
   title: string
   variant?: string
   type?: string
+  disabled?: boolean
   onClick?: () => void
 }
 
-export function Button({ title, variant = 'primary', onClick }: ButtonProps) {
+export function Button({
+  disabled,
+  title,
+  variant = 'primary',
+  onClick,
+}: ButtonProps) {
   return (
-    <ButtonContainer variant={variant} onClick={onClick}>
+    <ButtonContainer disabled={disabled} variant={variant} onClick={onClick}>
       {title}
     </ButtonContainer>
   )

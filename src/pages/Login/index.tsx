@@ -6,6 +6,8 @@ import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 
+import { api } from '../../services/api'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -20,7 +22,6 @@ import {
   Row,
   Wrapper,
 } from '../../styles/login'
-import { api } from '../../services/api'
 import { defaultValues, IFormLogin } from '../../components/Input/types'
 
 const schema = yup
@@ -38,11 +39,14 @@ const schema = yup
 
 export function Login() {
   const navigate = useNavigate()
+  const handleClickSignIn = () => {
+    navigate('/registration')
+  }
 
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IFormLogin>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -66,7 +70,7 @@ export function Login() {
 
   return (
     <>
-      <Header authenticated={true} />
+      <Header />
       <Container>
         <Column flex={2}>
           <Title>
@@ -82,22 +86,30 @@ export function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
                 name="email"
+                placeholder="E-mail"
                 errorMessage={errors?.email?.message}
                 control={control}
                 leftIcon={<MdEmail color="#8647AD" />}
               />
               <Input
                 name="password"
+                placeholder="Senha"
+                type="password"
                 errorMessage={errors?.password?.message}
                 control={control}
                 leftIcon={<MdLock color="#8647AD" />}
               />
-              <Button title="Entrar" variant="secondary" type="submit" />
+              <Button
+                disabled={!isValid}
+                title="Entrar"
+                variant="secondary"
+                type="submit"
+              />
             </form>
 
             <Row>
               <EsqueciText>Esqueci minha senha</EsqueciText>
-              <CriarText>Criar Conta</CriarText>
+              <CriarText onClick={handleClickSignIn}>Criar Conta</CriarText>
             </Row>
           </Wrapper>
         </Column>

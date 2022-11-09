@@ -8,6 +8,9 @@ import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 
+import { api } from '../../services/api'
+import { IFormLogin, defaultValues } from '../../components/Input/types'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -22,17 +25,10 @@ import {
   Row,
   Wrapper,
 } from '../../styles/registration'
-import { api } from '../../services/api'
-
-interface IFormInputs {
-  name: string
-  email: string
-  password: string
-}
 
 const schema = yup
   .object({
-    name: yup
+    nome: yup
       .string()
       .max(40, 'nome não invalido')
       .required('Campo Obrigatório'),
@@ -50,16 +46,21 @@ const schema = yup
 export function Registration() {
   const navigate = useNavigate()
 
+  const handleSignIn = () => {
+    navigate('/login')
+  }
+
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInputs>({
+    formState: { errors, isValid },
+  } = useForm<IFormLogin>({
     resolver: yupResolver(schema),
     mode: 'onChange',
+    defaultValues,
   })
 
-  const onSubmit = async (formData: IFormInputs) => {
+  const onSubmit = async (formData: IFormLogin) => {
     try {
       const { data } = await api.get(
         `users?email=${formData.email}&senha=${formData.password}`,
@@ -76,7 +77,7 @@ export function Registration() {
 
   return (
     <>
-      <Header authenticated={true} />
+      <Header />
       <Container>
         <Column flex={2}>
           <Title>
@@ -93,9 +94,9 @@ export function Registration() {
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
-                name="name"
+                name="nome"
                 placeholder="Nome completo"
-                errorMessage={errors?.name?.message}
+                errorMessage={errors?.nome?.message}
                 control={control}
                 leftIcon={<FaUser color="#8647AD" />}
               />
@@ -109,11 +110,13 @@ export function Registration() {
               <Input
                 name="password"
                 placeholder="Password"
+                type="password"
                 errorMessage={errors?.password?.message}
                 control={control}
                 leftIcon={<MdLock color="#8647AD" />}
               />
               <Button
+                disabled={!isValid}
                 title="Criar minha conta"
                 variant="secondary"
                 type="submit"
@@ -126,7 +129,8 @@ export function Registration() {
             </TitleConta>
             <Row>
               <ContaText>
-                Já tenho conta. <strong>Fazer login</strong>
+                Já tenho conta.{' '}
+                <strong onClick={handleSignIn}>Fazer login</strong>
               </ContaText>
             </Row>
           </Wrapper>
