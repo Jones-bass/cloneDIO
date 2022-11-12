@@ -19,7 +19,7 @@ export const InputText = styled.input`
   background-color: transparent;
   color: #ffffff;
   flex: 1;
-  border: 0;
+  border: none;
   height: 30px;
 
   :focus {

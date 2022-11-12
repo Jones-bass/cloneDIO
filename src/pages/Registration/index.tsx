@@ -28,7 +28,7 @@ import {
 
 const schema = yup
   .object({
-    nome: yup
+    name: yup
       .string()
       .max(40, 'nome não invalido')
       .required('Campo Obrigatório'),
@@ -36,7 +36,7 @@ const schema = yup
       .string()
       .email('email não é valido')
       .required('Campo Obrigatório'),
-    password: yup
+    senha: yup
       .string()
       .min(6, 'No minimo 6 caracteres')
       .required('Campo Obrigatório'),
@@ -60,19 +60,15 @@ export function Registration() {
     defaultValues,
   })
 
-  const onSubmit = async (formData: IFormLogin) => {
-    try {
-      const { data } = await api.get(
-        `users?email=${formData.email}&senha=${formData.password}`,
-      )
-      if (data.length === 1) {
-        navigate('/feed')
-      } else {
-        alert('Email ou senha inválido')
-      }
-    } catch {
-      alert('Tente novamente!')
-    }
+  async function handleCreateNew(data: IFormLogin) {
+    const { name, email, senha } = data
+
+    await api.post('users', {
+      name,
+      email,
+      senha,
+    })
+    navigate('/feed')
   }
 
   return (
@@ -92,11 +88,11 @@ export function Registration() {
               Crie sua conta e make the change._
             </SubtitleRegistration>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(handleCreateNew)}>
               <Input
-                name="nome"
+                name="name"
                 placeholder="Nome completo"
-                errorMessage={errors?.nome?.message}
+                errorMessage={errors?.name?.message}
                 control={control}
                 leftIcon={<FaUser color="#8647AD" />}
               />
@@ -108,8 +104,8 @@ export function Registration() {
                 leftIcon={<MdEmail color="#8647AD" />}
               />
               <Input
-                name="password"
-                placeholder="Password"
+                name="senha"
+                placeholder="senha"
                 type="password"
                 errorMessage={errors?.password?.message}
                 control={control}

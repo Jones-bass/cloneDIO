@@ -6,7 +6,8 @@ interface ButtonProps {
 
 export const ButtonContainer = styled.button<ButtonProps>`
   background: #565656;
-  border-radius: 22px;
+  border-radius: 20px;
+  border: none;
   position: relative;
 
   color: #ffffff;

@@ -4,7 +4,7 @@ import { InputContainer, InputText, IconContainer, ErrosText } from './styles'
 import { IFormLogin } from './types'
 
 interface InputProps {
-  name: 'nome' | 'email' | 'password'
+  name: 'name' | 'email' | 'senha'
   leftIcon?: React.ReactNode
   control: Control<IFormLogin, any>
   placeholder: string

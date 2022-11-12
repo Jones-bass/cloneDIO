@@ -50,7 +50,7 @@ export function Header({ authenticated }: AuthenticatedProps) {
             <UserPicture src="https://avatars.githubusercontent.com/u/85463497?v=4" />
           ) : (
             <>
-              <Button onClick={handleSignIn} title="Entrar" />
+              <Button onClick={handleSignIn} title="Entrar" /> <br />
               <Button onClick={handleRegistration} title="Cadastrar" />
             </>
           )}
