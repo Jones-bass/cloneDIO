@@ -1,5 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo-dio.png'
+import { AuthContext } from '../../context/auth'
 import { Button } from '../Button'
 import {
   Container,
@@ -11,11 +13,9 @@ import {
   UserPicture,
 } from './styles'
 
-interface AuthenticatedProps {
-  authenticated?: boolean
-}
+export function Header() {
+  const { user } = useContext(AuthContext)
 
-export function Header({ authenticated }: AuthenticatedProps) {
   const navigate = useNavigate()
 
   const handleSignIn = () => {
@@ -26,16 +26,14 @@ export function Header({ authenticated }: AuthenticatedProps) {
     navigate('/registration')
   }
 
-  const handleHome = () => {
-    navigate('/')
-  }
-
   return (
     <Wrapper>
       <Container>
         <Row>
-          <img src={logo} alt="Logo da dio" onClick={handleHome} />
-          {authenticated ? (
+          <Link to="/">
+            <img src={logo} alt="Logo da dio" />
+          </Link>
+          {user.id ? (
             <>
               <BuscarInputContainer>
                 <Input placeholder="Buscar..." />
@@ -46,7 +44,7 @@ export function Header({ authenticated }: AuthenticatedProps) {
           ) : null}
         </Row>
         <Row>
-          {authenticated ? (
+          {user.id ? (
             <UserPicture src="https://avatars.githubusercontent.com/u/85463497?v=4" />
           ) : (
             <>

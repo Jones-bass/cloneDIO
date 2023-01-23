@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 import { Controller, Control } from 'react-hook-form'
+import { IFormLogin } from '../../@types/loginTypes'
 import { InputContainer, InputText, IconContainer, ErrosText } from './styles'
-import { IFormLogin } from './types'
 
 interface InputProps {
-  name: 'name' | 'email' | 'senha'
+  name: 'name' | 'email' | 'password'
   leftIcon?: React.ReactNode
   control: Control<IFormLogin, any>
   placeholder: string

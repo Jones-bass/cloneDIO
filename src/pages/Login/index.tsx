@@ -6,8 +6,6 @@ import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 
-import { api } from '../../services/api'
-
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
@@ -22,7 +20,9 @@ import {
   Row,
   Wrapper,
 } from '../../styles/login'
-import { defaultValues, IFormLogin } from '../../components/Input/types'
+import { defaultValues, IFormLogin } from '../../@types/loginTypes'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/auth'
 
 const schema = yup
   .object({
@@ -38,6 +38,8 @@ const schema = yup
   .required()
 
 export function Login() {
+  const { handleLogin } = useContext(AuthContext)
+
   const navigate = useNavigate()
   const handleClickSignIn = () => {
     navigate('/registration')
@@ -54,18 +56,7 @@ export function Login() {
   })
 
   const onSubmit = async (formData: IFormLogin) => {
-    try {
-      const { data } = await api.get(
-        `users?email=${formData.email}&senha=${formData.password}`,
-      )
-      if (data.length === 1) {
-        navigate('/feed')
-      } else {
-        alert('Email ou senha inválido')
-      }
-    } catch {
-      alert('Tente novamente!')
-    }
+    handleLogin(formData)
   }
 
   return (

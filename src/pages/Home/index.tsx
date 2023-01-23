@@ -20,7 +20,7 @@ export function Home() {
 
   return (
     <>
-      <Header authenticated={false} />
+      <Header />
       <Container>
         <div>
           <Title>

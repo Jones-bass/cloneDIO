@@ -9,7 +9,7 @@ import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 
 import { api } from '../../services/api'
-import { IFormLogin, defaultValues } from '../../components/Input/types'
+import { defaultValues, IFormLogin } from '../../@types/loginTypes'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -104,7 +104,7 @@ export function Registration() {
                 leftIcon={<MdEmail color="#8647AD" />}
               />
               <Input
-                name="senha"
+                name="password"
                 placeholder="senha"
                 type="password"
                 errorMessage={errors?.password?.message}

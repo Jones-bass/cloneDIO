@@ -6,11 +6,12 @@ import { Container, Column, Title, TitleHighlight } from '../../styles/feed'
 export function Feed() {
   return (
     <>
-      <Header authenticated={true} />
+      <Header />
       <Container>
         <Column flex={3}>
           <Title>Feed</Title>
           <Card />
+
           <Card />
           <Card />
         </Column>
