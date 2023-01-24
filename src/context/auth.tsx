@@ -1,8 +1,10 @@
 import { createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import {
   IAuthContext,
   IAuthContextProviderProps,
+  ICreateUser,
   ILoginData,
 } from '../@types/contextTypes'
 import { IUser } from '../@types/userTypes'
@@ -14,6 +16,7 @@ export const AuthContextProvider = ({
   children,
 }: IAuthContextProviderProps) => {
   const [user, setUser] = useState<IUser>({} as IUser)
+
   const navigate = useNavigate()
 
   const handleLogin = async (loginData: ILoginData) => {
@@ -32,8 +35,22 @@ export const AuthContextProvider = ({
     }
   }
 
+  const handleCreateUser = async (data: ICreateUser) => {
+    const { name, email, password } = data
+
+    await api.post('users', {
+      name,
+      email,
+      password,
+    })
+    navigate('/login')
+    if (data !== undefined) {
+      toast.success('Usuário Cadastrado.')
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ user, handleLogin }}>
+    <AuthContext.Provider value={{ user, handleLogin, handleCreateUser }}>
       {children}
     </AuthContext.Provider>
   )

@@ -1,10 +1,12 @@
+/* eslint-disable no-use-before-define */
 import React from 'react'
 import { IUser } from './userTypes'
 
 export interface IAuthContext {
   user: IUser
-  // eslint-disable-next-line no-use-before-define
+
   handleLogin: (loginData: ILoginData) => Promise<void>
+  handleCreateUser: (data: ICreateUser) => Promise<void>
 }
 
 export interface IAuthContextProviderProps {
@@ -12,6 +14,12 @@ export interface IAuthContextProviderProps {
 }
 
 export interface ILoginData {
+  email: string
+  password: string
+}
+
+export interface ICreateUser {
+  name: string
   email: string
   password: string
 }

@@ -8,7 +8,6 @@ import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 
-import { api } from '../../services/api'
 import { defaultValues, IFormLogin } from '../../@types/loginTypes'
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -25,6 +24,7 @@ import {
   Row,
   Wrapper,
 } from '../../styles/registration'
+import { useAuth } from '../../hooks/useAuth'
 
 const schema = yup
   .object({
@@ -36,7 +36,7 @@ const schema = yup
       .string()
       .email('email não é valido')
       .required('Campo Obrigatório'),
-    senha: yup
+    password: yup
       .string()
       .min(6, 'No minimo 6 caracteres')
       .required('Campo Obrigatório'),
@@ -44,6 +44,8 @@ const schema = yup
   .required()
 
 export function Registration() {
+  const { handleCreateUser } = useAuth()
+
   const navigate = useNavigate()
 
   const handleSignIn = () => {
@@ -61,14 +63,7 @@ export function Registration() {
   })
 
   async function handleCreateNew(data: IFormLogin) {
-    const { name, email, senha } = data
-
-    await api.post('users', {
-      name,
-      email,
-      senha,
-    })
-    navigate('/feed')
+    handleCreateUser(data)
   }
 
   return (

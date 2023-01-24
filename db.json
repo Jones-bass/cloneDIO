@@ -2,13 +2,7 @@
   "users": [
     {
       "id": 1,
-      "name": "Pablo",
-      "email": "pablo@gmail.com",
-      "password": "123456"
-    },
-    {
-      "id": 2,
-      "name": "Jones",
+      "name": "Jones Souza",
       "email": "jonesbass.tb@gmail.com",
       "password": "123456"
     }

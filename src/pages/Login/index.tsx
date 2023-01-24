@@ -5,6 +5,9 @@ import { MdEmail, MdLock } from 'react-icons/md'
 import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
+import { defaultValues, IFormLogin } from '../../@types/loginTypes'
+
+import { useAuth } from '../../hooks/useAuth'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -20,9 +23,6 @@ import {
   Row,
   Wrapper,
 } from '../../styles/login'
-import { defaultValues, IFormLogin } from '../../@types/loginTypes'
-import { useContext } from 'react'
-import { AuthContext } from '../../context/auth'
 
 const schema = yup
   .object({
@@ -38,7 +38,7 @@ const schema = yup
   .required()
 
 export function Login() {
-  const { handleLogin } = useContext(AuthContext)
+  const { handleLogin } = useAuth()
 
   const navigate = useNavigate()
   const handleClickSignIn = () => {

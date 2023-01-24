@@ -1,7 +1,6 @@
-import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo-dio.png'
-import { AuthContext } from '../../context/auth'
+import { useAuth } from '../../hooks/useAuth'
 import { Button } from '../Button'
 import {
   Container,
@@ -14,7 +13,7 @@ import {
 } from './styles'
 
 export function Header() {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuth()
 
   const navigate = useNavigate()
 
