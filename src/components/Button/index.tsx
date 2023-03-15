@@ -1,11 +1,12 @@
+import { MouseEventHandler } from 'react'
 import { ButtonContainer } from './styles'
 
 interface ButtonProps {
-  title: string
+  title?: string
   variant?: string
   type?: string
   disabled?: boolean
-  onClick?: () => void
+  onClick?: MouseEventHandler
 }
 
 export function Button({

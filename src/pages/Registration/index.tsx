@@ -38,10 +38,27 @@ const schema = yup
       .required('Campo Obrigatório'),
     password: yup
       .string()
-      .min(6, 'No minimo 6 caracteres')
+      .min(8, 'A senha deve ter no mínimo 8 caracteres')
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        'A senha deve ter pelo menos uma letra e um número',
+      )
       .required('Campo Obrigatório'),
   })
   .required()
+/* password: z
+      .string()
+      .min(8, { message: 'A senha deve ter pelo menos 8 caracteres.' })
+      .regex(/[A-Z]/, {
+        message: 'A senha deve ter pelo menos uma letra maiúscula.',
+      })
+      .regex(/[a-z]/, {
+        message: 'A senha deve ter pelo menos uma letra minúscula.',
+      })
+      .regex(/[0-9]/, { message: 'A senha deve ter pelo menos um número.' })
+      .regex(/[^A-Za-z0-9]/, {
+        message: 'A senha deve ter pelo menos um caractere especial.',
+      */
 
 export function Registration() {
   const { handleCreateUser } = useAuth()

@@ -15,6 +15,7 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext)
 export const AuthContextProvider = ({
   children,
 }: IAuthContextProviderProps) => {
+  const [login, setLogin] = useState(null)
   const [user, setUser] = useState<IUser>({} as IUser)
 
   const navigate = useNavigate()
@@ -35,6 +36,12 @@ export const AuthContextProvider = ({
     }
   }
 
+  const userLogout = async () => {
+    setLogin(null)
+    setUser({} as IUser)
+    navigate('/')
+  }
+
   const handleCreateUser = async (data: ICreateUser) => {
     const { name, email, password } = data
 
@@ -50,7 +57,9 @@ export const AuthContextProvider = ({
   }
 
   return (
-    <AuthContext.Provider value={{ user, handleLogin, handleCreateUser }}>
+    <AuthContext.Provider
+      value={{ user, handleLogin, userLogout, handleCreateUser }}
+    >
       {children}
     </AuthContext.Provider>
   )

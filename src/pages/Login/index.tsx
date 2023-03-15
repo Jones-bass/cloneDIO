@@ -32,7 +32,7 @@ const schema = yup
       .required('Campo Obrigatório'),
     password: yup
       .string()
-      .min(6, 'No minimo 6 caracteres')
+      .min(8, 'A senha deve ter no mínimo 8 caracteres')
       .required('Campo Obrigatório'),
   })
   .required()
@@ -51,7 +51,7 @@ export function Login() {
     formState: { errors, isValid },
   } = useForm<IFormLogin>({
     resolver: yupResolver(schema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues,
   })
 
@@ -91,7 +91,7 @@ export function Login() {
                 leftIcon={<MdLock color="#8647AD" />}
               />
               <Button
-                disabled={!isValid}
+                disabled={isValid}
                 title="Entrar"
                 variant="secondary"
                 type="submit"

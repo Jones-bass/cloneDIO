@@ -2,14 +2,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo-dio.png'
 import { useAuth } from '../../hooks/useAuth'
 import { Button } from '../Button'
+import { Dropdown } from '../Dropdown'
 import {
   Container,
   Wrapper,
   BuscarInputContainer,
-  Input,
+  InputSearch,
   Row,
   Menu,
-  UserPicture,
 } from './styles'
 
 export function Header() {
@@ -35,7 +35,7 @@ export function Header() {
           {user.id ? (
             <>
               <BuscarInputContainer>
-                <Input placeholder="Buscar..." />
+                <InputSearch placeholder="Buscar..." />
               </BuscarInputContainer>
               <Menu>Live Code</Menu>
               <Menu>Global</Menu>
@@ -44,7 +44,7 @@ export function Header() {
         </Row>
         <Row>
           {user.id ? (
-            <UserPicture src="https://avatars.githubusercontent.com/u/85463497?v=4" />
+            <Dropdown />
           ) : (
             <>
               <Button onClick={handleSignIn} title="Entrar" /> <br />

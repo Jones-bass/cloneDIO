@@ -7,6 +7,7 @@ export interface IAuthContext {
 
   handleLogin: (loginData: ILoginData) => Promise<void>
   handleCreateUser: (data: ICreateUser) => Promise<void>
+  userLogout: (loginData: ILoginData) => Promise<void>
 }
 
 export interface IAuthContextProviderProps {

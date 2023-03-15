@@ -15,6 +15,7 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 5px;
 `
 
 export const Wrapper = styled.div`
@@ -47,7 +48,7 @@ export const Menu = styled.a`
   margin-right: 12px;
 `
 
-export const Input = styled.input`
+export const InputSearch = styled.input`
   background: transparent;
   flex: 1;
   border: none;
@@ -57,11 +58,4 @@ export const Input = styled.input`
     outline: 0;
     border-bottom: 1px solid #8647ad;
   }
-`
-
-export const UserPicture = styled.img`
-  width: 32px;
-  height: 32px;
-  border-radius: 22px;
-  border: 3px solid #ffffff;
 `
