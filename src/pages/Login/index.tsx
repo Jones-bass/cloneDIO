@@ -1,16 +1,15 @@
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 import { MdEmail, MdLock } from 'react-icons/md'
 
-import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
-import { defaultValues, IFormLogin } from '../../@types/loginTypes'
 
 import { useAuth } from '../../hooks/useAuth'
 
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Input } from '../../components/Input'
 
 import {
   Container,
@@ -24,18 +23,27 @@ import {
   Wrapper,
 } from '../../styles/login'
 
-const schema = yup
-  .object({
-    email: yup
-      .string()
-      .email('email não é valido')
-      .required('Campo Obrigatório'),
-    password: yup
-      .string()
-      .min(8, 'A senha deve ter no mínimo 8 caracteres')
-      .required('Campo Obrigatório'),
-  })
-  .required()
+const createUserSchema = z.object({
+  email: z
+    .string()
+    .nonempty({
+      message: 'O e-mail é obrigatório',
+    })
+    .email({
+      message: 'Formato de e-mail inválido',
+    })
+    .toLowerCase(),
+  password: z
+    .string()
+    .nonempty({
+      message: 'A senha é obrigatória',
+    })
+    .min(8, {
+      message: 'A senha precisa ter no mínimo 8 caracteres',
+    }),
+})
+
+type CreateUserData = z.infer<typeof createUserSchema>
 
 export function Login() {
   const { handleLogin } = useAuth()
@@ -45,17 +53,16 @@ export function Login() {
     navigate('/registration')
   }
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<IFormLogin>({
-    resolver: yupResolver(schema),
-    mode: 'onBlur',
-    defaultValues,
+  const createUserForm = useForm<CreateUserData>({
+    resolver: zodResolver(createUserSchema),
   })
 
-  const onSubmit = async (formData: IFormLogin) => {
+  const {
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = createUserForm
+
+  const onSubmit = async (formData: CreateUserData) => {
     handleLogin(formData)
   }
 
@@ -74,29 +81,29 @@ export function Login() {
             <TitleLogin>Faça seu cadastro</TitleLogin>
             <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                name="email"
-                placeholder="E-mail"
-                errorMessage={errors?.email?.message}
-                control={control}
-                leftIcon={<MdEmail color="#8647AD" />}
-              />
-              <Input
-                name="password"
-                placeholder="Senha"
-                type="password"
-                errorMessage={errors?.password?.message}
-                control={control}
-                leftIcon={<MdLock color="#8647AD" />}
-              />
-              <Button
-                disabled={isValid}
-                title="Entrar"
-                variant="secondary"
-                type="submit"
-              />
-            </form>
+            <FormProvider {...createUserForm}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                  name="email"
+                  placeholder="E-mail"
+                  errorMessage={errors?.email?.message ?? ''}
+                  leftIcon={<MdEmail color="#8647AD" />}
+                />
+                <Input
+                  name="password"
+                  placeholder="Senha"
+                  type="password"
+                  errorMessage={errors?.password?.message ?? ''}
+                  leftIcon={<MdLock color="#8647AD" />}
+                />
+                <Button
+                  disabled={isSubmitting}
+                  title="Entrar"
+                  variant="secondary"
+                  type="submit"
+                />
+              </form>
+            </FormProvider>
 
             <Row>
               <EsqueciText>Esqueci minha senha</EsqueciText>

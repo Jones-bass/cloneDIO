@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm, FormProvider } from 'react-hook-form'
 
 import { MdEmail, MdLock } from 'react-icons/md'
 import { FaUser } from 'react-icons/fa'
@@ -8,10 +8,8 @@ import { Input } from '../../components/Input'
 import { Button } from '../../components/Button'
 import { Header } from '../../components/Header'
 
-import { defaultValues, IFormLogin } from '../../@types/loginTypes'
-
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Container,
@@ -26,39 +24,44 @@ import {
 } from '../../styles/registration'
 import { useAuth } from '../../hooks/useAuth'
 
-const schema = yup
-  .object({
-    name: yup
-      .string()
-      .max(40, 'nome não invalido')
-      .required('Campo Obrigatório'),
-    email: yup
-      .string()
-      .email('email não é valido')
-      .required('Campo Obrigatório'),
-    password: yup
-      .string()
-      .min(8, 'A senha deve ter no mínimo 8 caracteres')
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-        'A senha deve ter pelo menos uma letra e um número',
-      )
-      .required('Campo Obrigatório'),
-  })
-  .required()
-/* password: z
-      .string()
-      .min(8, { message: 'A senha deve ter pelo menos 8 caracteres.' })
-      .regex(/[A-Z]/, {
-        message: 'A senha deve ter pelo menos uma letra maiúscula.',
-      })
-      .regex(/[a-z]/, {
-        message: 'A senha deve ter pelo menos uma letra minúscula.',
-      })
-      .regex(/[0-9]/, { message: 'A senha deve ter pelo menos um número.' })
-      .regex(/[^A-Za-z0-9]/, {
-        message: 'A senha deve ter pelo menos um caractere especial.',
-      */
+const createUserSchema = z.object({
+  name: z
+    .string()
+    .nonempty({
+      message: 'O nome é obrigatório',
+    })
+    .transform((name) => {
+      return name
+        .trim()
+        .split(' ')
+        .map((word) => word[0].toLocaleUpperCase().concat(word.substring(1)))
+        .join(' ')
+    }),
+  email: z
+    .string()
+    .nonempty({
+      message: 'O e-mail é obrigatório',
+    })
+    .email({
+      message: 'Formato de e-mail inválido',
+    })
+    .toLowerCase(),
+  password: z
+    .string()
+    .min(8, { message: 'A senha deve ter pelo menos 8 caracteres.' })
+    .regex(/[A-Z]/, {
+      message: 'A senha deve ter pelo menos uma letra maiúscula.',
+    })
+    .regex(/[a-z]/, {
+      message: 'A senha deve ter pelo menos uma letra minúscula.',
+    })
+    .regex(/[0-9]/, { message: 'A senha deve ter pelo menos um número.' })
+    .regex(/[^A-Za-z0-9]/, {
+      message: 'A senha deve ter pelo menos um caractere especial.',
+    }),
+})
+
+type CreateUserData = z.infer<typeof createUserSchema>
 
 export function Registration() {
   const { handleCreateUser } = useAuth()
@@ -69,17 +72,16 @@ export function Registration() {
     navigate('/login')
   }
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<IFormLogin>({
-    resolver: yupResolver(schema),
-    mode: 'onChange',
-    defaultValues,
+  const createUserForm = useForm<CreateUserData>({
+    resolver: zodResolver(createUserSchema),
   })
 
-  async function handleCreateNew(data: IFormLogin) {
+  const {
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = createUserForm
+
+  async function handleCreateNew(data: CreateUserData) {
     handleCreateUser(data)
   }
 
@@ -99,37 +101,35 @@ export function Registration() {
             <SubtitleRegistration>
               Crie sua conta e make the change._
             </SubtitleRegistration>
-
-            <form onSubmit={handleSubmit(handleCreateNew)}>
-              <Input
-                name="name"
-                placeholder="Nome completo"
-                errorMessage={errors?.name?.message}
-                control={control}
-                leftIcon={<FaUser color="#8647AD" />}
-              />
-              <Input
-                name="email"
-                placeholder="E-mail"
-                errorMessage={errors?.email?.message}
-                control={control}
-                leftIcon={<MdEmail color="#8647AD" />}
-              />
-              <Input
-                name="password"
-                placeholder="senha"
-                type="password"
-                errorMessage={errors?.password?.message}
-                control={control}
-                leftIcon={<MdLock color="#8647AD" />}
-              />
-              <Button
-                disabled={!isValid}
-                title="Criar minha conta"
-                variant="secondary"
-                type="submit"
-              />
-            </form>
+            <FormProvider {...createUserForm}>
+              <form onSubmit={handleSubmit(handleCreateNew)}>
+                <Input
+                  name="name"
+                  placeholder="Nome completo"
+                  errorMessage={errors?.name?.message ?? ''}
+                  leftIcon={<FaUser color="#8647AD" />}
+                />
+                <Input
+                  name="email"
+                  placeholder="E-mail"
+                  errorMessage={errors?.email?.message ?? ''}
+                  leftIcon={<MdEmail color="#8647AD" />}
+                />
+                <Input
+                  name="password"
+                  placeholder="senha"
+                  type="password"
+                  errorMessage={errors?.password?.message ?? ''}
+                  leftIcon={<MdLock color="#8647AD" />}
+                />
+                <Button
+                  disabled={isSubmitting}
+                  title="Criar minha conta"
+                  variant="secondary"
+                  type="submit"
+                />
+              </form>
+            </FormProvider>
 
             <TitleConta>
               Ao clicar em <strong>criar minha conta grátis</strong>, declaro
